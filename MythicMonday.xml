@@ -1,0 +1,70 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+  <Frame virtual="true" name="MythicMondayContainerTemplate">
+    <Size x="900" y="600" />
+    <Anchors>
+      <Anchor point="CENTER"/>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="bg" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.25"/>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+    <Frame virtual="true" name="MythicMondayRosterContainerTemplate">
+    <Size x="200" y="600" />
+    <Anchors>
+      <Anchor point="LEFT">
+        <Offset>
+          <AbsDimension x="-200" y="00" />
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="bg" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.1"/>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+  <Frame virtual="true" name="MythicMondayGroupsContainerTemplate">
+    <Size x="900" y="400" />
+    <Anchors>
+      <Anchor point="BOTTOM">
+        <Offset>
+          <AbsDimension x="0" y="10" />
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="bg" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.1"/>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+  <Frame virtual="true" name="MythicMondayGroupTemplate">
+    <Anchors>
+      <Anchor point="CENTER"/>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="bg" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.25"/>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+  <Frame virtual="true" name="MythicMondayPlayerTemplate">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="bg" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="0.5"/>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

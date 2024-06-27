@@ -1,0 +1,17 @@
+## Author: whatisboom
+## Title: Mythic Monday
+## Version: 10.2.7-2
+## Interface: 100207
+## Notes: Stuff
+
+libs/ChatThrottleLib.lua
+
+MythicMonday.xml
+core.lua
+constants.lua
+events.lua
+frames.lua
+functions.lua
+messaging.lua
+roster.lua
+MythicMonday.lua
