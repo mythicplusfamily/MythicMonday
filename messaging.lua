@@ -3,9 +3,10 @@ local MythicMonday = MythicMonday
 MythicMonday.msg = MythicMonday.msg or {}
 
 function MythicMonday.msg:SendMessage(data)
+  if not data then return end
   print("sending message", data)
   -- C_ChatInfo.SendAddonMessage(MythicMonday.const.ADDON_MESSAGE_PREFIX, data, "GUILD")
-  ChatThrottleLib:SendAddonMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, tostring(data), "PARTY")
+  ChatThrottleLib:SendAddonMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, tostring(data), "GUILD")
 end
 
 function MythicMonday.msg:OnAddonMessage(event, prefix, message, channel, sender)

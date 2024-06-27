@@ -42,14 +42,10 @@ function MythicMonday:GetKeystoneAffixText(keystoneLevel)
     stop = 3
   end
   local currentAffixes = C_MythicPlus.GetCurrentAffixes()
-  local affixIds = {
-    "0",
-    "0",
-    "0",
-    "0"
-  }
-  for i=0,stop do
-    affixIds[i] = tostring(currentAffixes[i])
+  local affixIds = { 0, 0, 0, 0 }
+  for k,v in ipairs(currentAffixes) do
+    if k > stop then break end
+    affixIds[k] = v.id
   end
   return MythicMonday:JoinStrings(":", unpack(affixIds))
 end
