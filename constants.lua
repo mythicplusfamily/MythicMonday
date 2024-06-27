@@ -1,7 +1,7 @@
 local MythicMonday = MythicMonday
 MythicMonday.const = MythicMonday.const or {}
 MythicMonday.const.MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
-MythicMonday.const.ADDON_MESSAE_PREFIX = "MythicMonday"
+MythicMonday.const.ADDON_MESSAGE_PREFIX = "MythicMonday"
 
 MythicMonday.const.MAX_GROUPS = 8
 
