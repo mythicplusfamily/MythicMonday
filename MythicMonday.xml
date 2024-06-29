@@ -12,7 +12,26 @@
       </Layer>
     </Layers>
   </Frame>
-    <Frame virtual="true" name="MythicMondayRosterContainerTemplate">
+  <Frame name="MythicMondayContainerTitleTemplate" virtual="true">
+    <Size x="900" y="100"/>
+    <Layers>
+        <Layer>
+            <FontString name="$parentTitle" 
+              text="Mythic Plus Family" justifyH="CENTER" justifyV="TOP">
+            <Color r="1" g="0.8" b="1" a="1"/>
+            <FontHeight val="12"/>
+            <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" x="0" y="-20" />
+            </Anchors>
+            <!-- <Shadow>
+              <Offset x="1" y="1" />
+              <Color r="0" g="0" b="0"/>
+            </Shadow> -->
+          </FontString>
+        </Layer>
+    </Layers>
+  </Frame>
+  <Frame virtual="true" name="MythicMondayRosterContainerTemplate">
     <Size x="200" y="600" />
     <Anchors>
       <Anchor point="LEFT">

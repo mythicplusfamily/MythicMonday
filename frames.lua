@@ -8,9 +8,13 @@ function MythicMonday:CreateMainFrame()
   self.frames.MythicMondayFrame:SetPoint("CENTER")
   self.frames.MythicMondayFrame:EnableMouse(true)
   self.frames.MythicMondayFrame:SetMovable(true)
-  self.frames.MythicMondayFrame:RegisterForDrag("LeftButton")
-  self.frames.MythicMondayFrame:SetScript("OnDragStart", self.frames.MythicMondayFrame.StartMoving)
-  self.frames.MythicMondayFrame:SetScript("OnDragStop", self.frames.MythicMondayFrame.StopMovingOrSizing)
+  self.frames.MythicMondayFrame:SetScript("OnMouseDown", function(self, button) MythicMonday:HandleMouseDown(self, button) end)
+  self.frames.MythicMondayFrame:SetScript("OnMouseUp", function(self, button, isInside) MythicMonday:HandleMouseUp(self, button, isInside) end)
+  -- self.frames.MythicMondayFrame:RegisterForDrag("LeftButton")
+  -- self.frames.MythicMondayFrame:SetScript("OnDragStart", self.frames.MythicMondayFrame.StartMoving)
+  -- self.frames.MythicMondayFrame:SetScript("OnDragStop", self.frames.MythicMondayFrame.StopMovingOrSizing)
+  local title = CreateFrame("Frame", "MythicMondayContainerTitle", self.frames.MythicMondayFrame, "MythicMondayContainerTitleTemplate")
+  title:SetPoint("TOP", 0, -20)
   if not self.const.isDebug then 
     tinsert(UISpecialFrames, self.frames.MythicMondayFrame:GetName())
   end
@@ -46,7 +50,7 @@ function MythicMonday:GetGroupFrame()
     if not frame then
       frame = self:CreateGroupFrame(length)
     end
-
+    -- frame:ClearAllPoints()
     frame.inUse = true
     return frame
   end
@@ -80,9 +84,11 @@ function MythicMonday:CreateKeystoneDropdown(frame)
   UIDropDownMenu_SetWidth(dropdown, 80)
   UIDropDownMenu_SetText(dropdown, "Select a Keystone")
   local items = {
-    "Option 1",
-    "Option 2",
-    "Option 3",
+    "Keystone 1",
+    "Keystone 2",
+    "Keystone 3",
+    "Keystone 4",
+    "Keystone 5",
   }
   local function OnClick(self)
     UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
@@ -183,6 +189,11 @@ function MythicMonday:CreatePlayerFrame(index, container)
   -- index = index + 1
   local frame = CreateFrame("Frame", "PlayerFrame"..index, container, "MythicMondayPlayerTemplate")
   frame:SetAttribute("index", index)
+  -- frame:EnableMouse(true)
+  -- frame:SetMovable(true)
+  -- frame:RegisterForDrag("LeftButton")
+  -- frame:SetScript("OnDragStart", frame.StartMoving)
+  -- frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
   table.insert(self.frames.MythicMondayPlayerFrames, frame)
   return frame
 end

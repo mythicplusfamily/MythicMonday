@@ -28,5 +28,5 @@ end
 function MythicMonday.msg:OnKeyStoneMessage(player, message)
   local type, role, mapId, keystoneLevel = MythicMonday:SplitString(message, '-')
   MythicMonday:Debug(MythicMonday.const.d_info, "OnKeyStoneMessage: ".. player .. " " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel))
-  ChatThrottleLib:SendChatMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, "OnKeyStoneMessage: ".. player .. " " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel), "PARTY")
+  -- ChatThrottleLib:SendChatMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, "OnKeyStoneMessage: ".. player .. " " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel), "PARTY")
 end

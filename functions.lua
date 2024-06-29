@@ -31,7 +31,21 @@ function MythicMonday:GetClassColor(className)
   end
 end
 
+-- DragAndDrop handlers
 
+function MythicMonday:HandleMouseDown(self, button)
+  if button == "LeftButton" then
+    self:StartMoving()
+  end
+end
+
+
+function MythicMonday:HandleMouseUp(self, button, isInside)
+  MythicMonday:Debug(MythicMonday.const.d_debug, isInside)
+  if button == "LeftButton" then
+    self:StopMovingOrSizing()
+  end
+end
 
 -- KEYSTONE
 
