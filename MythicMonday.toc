@@ -8,8 +8,10 @@ libs/ChatThrottleLib.lua
 
 MythicMonday.xml
 core.lua
+colors.lua
 constants.lua
 events.lua
+featureflags.lua
 frames.lua
 functions.lua
 messaging.lua

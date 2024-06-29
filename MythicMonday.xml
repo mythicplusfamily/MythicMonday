@@ -43,7 +43,7 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a=".5"/>
+          <Color r="0" g="0" b="0" a="1"/>
         </Texture>
       </Layer>
     </Layers>
@@ -72,18 +72,22 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="0.25"/>
+          <Color r="0" g="0" b="0" a="0"/>
         </Texture>
       </Layer>
     </Layers>
   </Frame>
-  <Frame virtual="true" name="MythicMondayPlayerTemplate">
-    <Layers>
+
+  <Frame virtual="true" name="MythicMondayPlayerTemplate" inherits="">
+    <!-- <KeyValues>
+ 		  <KeyValue key="backdropInfo" value="BACKDROP_ARENA_32_32" type="global" />
+ 	  </KeyValues> -->
+    <!-- <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
           <Color r="0" g="0" b="0" a="0.5"/>
         </Texture>
       </Layer>
-    </Layers>
+    </Layers> -->
   </Frame>
 </Ui>

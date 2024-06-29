@@ -70,6 +70,9 @@ function MythicMonday:CreateGroupFrame(index)
   frame:SetSize(groupWidth, groupHeight)
   frame:SetPoint("LEFT", padding/2, 0)
   frame:SetPoint("TOP", 0, topOffset)
+  frame:SetScript("OnMouseUp", function(self, button, isInside)
+    print("mouseUp", isInside, self:GetName())
+  end)
   table.insert(self.frames.MythicMondayGroupFrames, frame)
   self:CreateKeystoneDropdown(frame)
   return frame
@@ -123,7 +126,7 @@ function MythicMonday:ComputeItemHeightAndOffset(index, parentHeight, padding, n
   return itemHeight, topOffset
 end
 
-function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class)
+function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io)
   local frame = self:GetPlayerFrame(rosterContainer)
   -- local padding = 0
   -- local containerHeight = rosterContainer:GetHeight()
@@ -135,6 +138,8 @@ function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class)
   local numChildren = select("#", rosterContainer:GetChildren())
   local top = playerHeight * numChildren
   frame:SetPoint("TOP", rosterContainer, "TOP", 0, -top)
+  -- local bgColor = MythicMonday:GetQualityColorByIO(io)
+  -- frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
   playerName:SetText(name)
@@ -143,7 +148,7 @@ function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class)
   return frame
 end
 
-function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class)
+function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class, io)
   local frame = self:GetPlayerFrame(groupContainer)
   local padding = 0
   local groupContainerHeight = groupContainer:GetHeight()
@@ -153,9 +158,11 @@ function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class)
   local playerHeight = groupContainerHeight - (padding * 2)
   frame:SetSize(playerWidth, playerHeight)
   frame:SetPoint("TOPLEFT", groupContainer, "TOPLEFT", playerWidth * ((frame:GetAttribute("index") % 5)), 0)
+  local bgColor = MythicMonday:GetQualityColorByIO(io)
+  frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 0.5)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
-  playerName:SetText(name)
+  playerName:SetText(name .. " " .. io)
   local color = MythicMonday:GetClassColor(class)
   playerName:SetTextColor(color.red, color.green, color.blue, 1)
   return frame
@@ -186,14 +193,20 @@ end
 
 function MythicMonday:CreatePlayerFrame(index, container)
   index = index or 0
-  -- index = index + 1
-  local frame = CreateFrame("Frame", "PlayerFrame"..index, container, "MythicMondayPlayerTemplate")
+  local frame = CreateFrame("Frame", "PlayerFrame"..index, container, "BackdropTemplate")
+  frame:SetBackdrop({
+    bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+    insets = { left = 0, right = 0, top = 0, bottom = 0 },
+  })
+  frame:SetBackdropColor(0, 0, 0, 0.75) 
   frame:SetAttribute("index", index)
-  -- frame:EnableMouse(true)
-  -- frame:SetMovable(true)
-  -- frame:RegisterForDrag("LeftButton")
-  -- frame:SetScript("OnDragStart", frame.StartMoving)
-  -- frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+  if MythicMonday.featureflags.DraggablePlayerFrames then
+    frame:EnableMouse(true)
+    frame:SetMovable(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+  end
   table.insert(self.frames.MythicMondayPlayerFrames, frame)
   return frame
 end

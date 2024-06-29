@@ -1,32 +1,10 @@
 local MythicMonday = MythicMonday
 
 function MythicMonday:GetClassColor(className)
-  -- Mapping of class names to their colors
-  local classColors = {
-      ["Warrior"] = {red = 0.78, green = 0.61, blue = 0.43},
-      ["Paladin"] = {red = 0.96, green = 0.55, blue = 0.73},
-      ["Hunter"] = {red = 0.67, green = 0.83, blue = 0.45},
-      ["Rogue"] = {red = 1.00, green = 0.96, blue = 0.41},
-      ["Priest"] = {red = 1.00, green = 1.00, blue = 1.00},
-      ["Death Knight"] = {red = 0.77, green = 0.12, blue = 0.23},
-      ["Shaman"] = {red = 0.00, green = 0.44, blue = 0.87},
-      ["Mage"] = {red = 0.41, green = 0.80, blue = 0.94},
-      ["Warlock"] = {red = 0.58, green = 0.51, blue = 0.79},
-      ["Monk"] = {red = 0.00, green = 1.00, blue = 0.59},
-      ["Druid"] = {red = 1.00, green = 0.49, blue = 0.04},
-      ["Demon Hunter"] = {red = 0.64, green = 0.19, blue = 0.79},
-      ["Evoker"] = {red = 0.20, green = 0.58, blue = 0.50}
-  }
-
-  -- Get the color for the given class name
-  local color = classColors[className]
-
-  -- Check if the color was found
+  local color = MythicMonday.colors.classColors[className]
   if color then
-      -- Return the color
       return color
   else
-      -- Return an error message if the class name is not recognized
       return {red=1, green=0, blue=0}
   end
 end
@@ -47,7 +25,7 @@ function MythicMonday:HandleMouseUp(self, button, isInside)
   end
 end
 
--- KEYSTONE
+-- Keystones
 
 function MythicMonday:GetMythicKeystoneInfo()
   -- Get the player's name
@@ -93,7 +71,7 @@ function MythicMonday:GetKeystoneAffixText(keystoneLevel)
   return MythicMonday:JoinStrings(":", unpack(affixIds))
 end
 
--- UTILS
+-- Utils
 
 function MythicMonday:SplitString(inputstr, sep)
   if sep == nil then
@@ -116,7 +94,33 @@ function MythicMonday:JoinStrings(separator, ...)
 end
 
 function MythicMonday:Debug(debugLevel, ...)
-  if MythicMonday.const.isDebug and debugLevel <MythicMonday.const.debugLevel then
+  if MythicMonday.const.isDebug and debugLevel < MythicMonday.const.debugLevel then
     print(debugLevel, ...)
   end
 end
+
+function MythicMonday:LerpColor(t, color1, color2)
+  local r = math.floor(color1[1] + t * (color2[1] - color1[1]))
+  local g = math.floor(color1[2] + t * (color2[2] - color1[2]))
+  local b = math.floor(color1[3] + t * (color2[3] - color1[3]))
+  return {r, g, b}
+end
+
+function MythicMonday:GetQualityColorByIO(io)
+  local color = MythicMonday.colors.qualityColors["Poor"]
+  if io > 3000 then
+    color = MythicMonday.colors.qualityColors["Artifact"]
+  elseif io > 2500 then
+    color = MythicMonday.colors.qualityColors["Legendary"]
+  elseif io > 2000 then
+    color = MythicMonday.colors.qualityColors["Epic"]
+  elseif io > 1500 then
+    color = MythicMonday.colors.qualityColors["Rare"]
+  elseif io > 1000 then
+    color = MythicMonday.colors.qualityColors["Uncommon"]
+  elseif io > 500 then
+    color = MythicMonday.colors.qualityColors["Common"]
+  end
+  return color
+end
+
