@@ -16,16 +16,21 @@ function MythicMonday:Init()
   SLASH_MythicMonday1 = "/mm"
   SlashCmdList[addonName] = SlashCommand
   MythicMonday:CreateMainFrame()
+  MythicMonday:Render()
+end
+
+function MythicMonday:Render()
   MythicMonday:CreateGroupsContainer()
   for i=1,8 do
-    local frame = MythicMonday:GetGroupFrame()
+    local groupFrame = MythicMonday:GetGroupFrame()
     for j=1,5 do
-      local player = MythicMonday:GetGroupPlayerFrame(frame)
+      local name, _, _, _, class = GetGuildRosterInfo(i * j)
+      local player = MythicMonday:GetGroupPlayerFrame(groupFrame, name, class)
     end
   end
   local roster = MythicMonday:CreateRosterContainer()
-  MythicMonday:GetRosterPlayerFrame(roster)
-  -- for _, frame in pairs(self.frames.MythicMondayGroupFrames) do
-  --   print("index", frame:GetAttribute("index"))
-  -- end
+  for i=41,51 or GetNumGuildMembers() do
+    local name, _, _, _, class = GetGuildRosterInfo(i)
+    local frame = MythicMonday:GetRosterPlayerFrame(roster, name, class)
+  end
 end

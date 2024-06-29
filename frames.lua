@@ -18,6 +18,9 @@ end
 
 function MythicMonday:CreateRosterContainer()
   self.frames.MythicMondayRosterContainer = CreateFrame("Frame", "MythicMondayRosterContainer", self.frames.MythicMondayFrame, "MythicMondayRosterContainerTemplate")
+  local title = self.frames.MythicMondayRosterContainer:CreateFontString("ROSTER", "OVERLAY", "GameFontNormal")
+  title:SetPoint("TOP", 0, -15)
+  title:SetText("Roster")
   return self.frames.MythicMondayRosterContainer
 end
 
@@ -114,21 +117,49 @@ function MythicMonday:ComputeItemHeightAndOffset(index, parentHeight, padding, n
   return itemHeight, topOffset
 end
 
-function MythicMonday:GetRosterPlayerFrame(rosterContainer)
+function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class)
   local frame = self:GetPlayerFrame(rosterContainer)
+  -- local padding = 0
+  -- local containerHeight = rosterContainer:GetHeight()
+  local containerWidth = rosterContainer:GetWidth()
+  -- local availableHeight = containerHeight - (padding * 2)
+  local playerWidth = containerWidth --(availableHeight/6) - padding
+  local playerHeight = 40 -- groupContainerHeight - (padding * 2)
+  frame:SetSize(playerWidth, playerHeight)
+  local numChildren = select("#", rosterContainer:GetChildren())
+  local top = playerHeight * numChildren
+  frame:SetPoint("TOP", rosterContainer, "TOP", 0, -top)
+  local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  playerName:SetPoint("CENTER")
+  playerName:SetText(name)
+  local color = MythicMonday:GetClassColor(class)
+  playerName:SetTextColor(color.red, color.green, color.blue, 1)
   return frame
 end
 
-function MythicMonday:GetGroupPlayerFrame(groupContainer)
+function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class)
   local frame = self:GetPlayerFrame(groupContainer)
+  local padding = 0
+  local groupContainerHeight = groupContainer:GetHeight()
+  local groupContainerWidth = groupContainer:GetWidth()
+  local availableWidth = groupContainerWidth - (padding * 2)
+  local playerWidth = (availableWidth/6) - padding
+  local playerHeight = groupContainerHeight - (padding * 2)
+  frame:SetSize(playerWidth, playerHeight)
+  frame:SetPoint("TOPLEFT", groupContainer, "TOPLEFT", playerWidth * ((frame:GetAttribute("index") % 5)), 0)
+  local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  playerName:SetPoint("CENTER")
+  playerName:SetText(name)
+  local color = MythicMonday:GetClassColor(class)
+  playerName:SetTextColor(color.red, color.green, color.blue, 1)
   return frame
 end
 
-function MythicMonday:GetPlayerFrame(groupContainer)
+function MythicMonday:GetPlayerFrame(container)
   local frame
   local length = #self.frames.MythicMondayPlayerFrames
   if length == 0 then
-    frame = self:CreatePlayerFrame(length, groupContainer)
+    frame = self:CreatePlayerFrame(length, container)
     frame.inUse = true
     return frame
   end
@@ -139,7 +170,7 @@ function MythicMonday:GetPlayerFrame(groupContainer)
     end
 
     if not frame then
-      frame = self:CreatePlayerFrame(length, groupContainer)
+      frame = self:CreatePlayerFrame(length, container)
     end
 
     frame.inUse = true
@@ -147,22 +178,11 @@ function MythicMonday:GetPlayerFrame(groupContainer)
   end
 end
 
-function MythicMonday:CreatePlayerFrame(index, groupContainer)
+function MythicMonday:CreatePlayerFrame(index, container)
   index = index or 0
-  index = index + 1
-  local padding = 0
-  local groupContainerHeight = groupContainer:GetHeight()
-  local groupContainerWidth = groupContainer:GetWidth()
-  local availableWidth = groupContainerWidth - (padding * 2)
-  local playerWidth = (availableWidth/6) - padding
-  local playerHeight = groupContainerHeight - (padding * 2)
-  
-  local frame = CreateFrame("Frame", "PlayerFrame"..index, groupContainer, "MythicMondayPlayerTemplate")
-  frame:SetSize(playerWidth, playerHeight)
-  frame:SetPoint("TOPLEFT", groupContainer, "TOPLEFT", playerWidth * ((index % 5)), 0)
-  local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  playerName:SetPoint("CENTER")
-  playerName:SetText("Laserfox")
+  -- index = index + 1
+  local frame = CreateFrame("Frame", "PlayerFrame"..index, container, "MythicMondayPlayerTemplate")
+  frame:SetAttribute("index", index)
   table.insert(self.frames.MythicMondayPlayerFrames, frame)
   return frame
 end
