@@ -50,7 +50,7 @@ function MythicMonday:GetKeystoneLink(challengeMapID, keystoneLevel)
 
   -- Create the keystone link
   local keystoneLink = "|cffa335ee|Hkeystone:180653:" .. challengeMapID .. ":" .. keystoneLevel .. ":".. self:GetKeystoneAffixText(keystoneLevel) .."|h[Keystone: " .. mapName .. " (" .. keystoneLevel .. ")]|h|r"
-
+  
   return keystoneLink
 end
 
@@ -85,25 +85,25 @@ function MythicMonday:SplitString(inputstr, sep)
 end
 
 function MythicMonday:JoinStrings(separator, ...)
+  local argTable = {...}
   if not separator then
     self:Debug(self.const.d_warn, "no separator")
     return ""
   end
-  local argTable = {...}
   return table.concat(argTable, separator)
 end
 
 function MythicMonday:Debug(debugLevel, ...)
-  if MythicMonday.const.isDebug and debugLevel < MythicMonday.const.debugLevel then
+  if MythicMonday.const.isDebug and debugLevel <= MythicMonday.const.debugLevel then
     print(debugLevel, ...)
   end
 end
 
 function MythicMonday:LerpColor(t, color1, color2)
-  local r = math.floor(color1[1] + t * (color2[1] - color1[1]))
-  local g = math.floor(color1[2] + t * (color2[2] - color1[2]))
-  local b = math.floor(color1[3] + t * (color2[3] - color1[3]))
-  return {r, g, b}
+  local red = math.floor(color1.red + t * (color2.red - color1.red))
+  local green = math.floor(color1.green + t * (color2.green - color1.green))
+  local blue = math.floor(color1.blue + t * (color2.blue - color1.blue))
+  return { red, green, blue }
 end
 
 function MythicMonday:GetQualityColorByIO(io)

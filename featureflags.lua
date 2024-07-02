@@ -1,4 +1,4 @@
 local MythicMonday = MythicMonday
 MythicMonday.featureflags = MythicMonday.featureflags or {}
 
-MythicMonday.featureflags.DraggablePlayerFrames = false
+MythicMonday.featureflags.DraggablePlayerFrames = true

@@ -8,8 +8,18 @@ function MythicMonday:CreateMainFrame()
   self.frames.MythicMondayFrame:SetPoint("CENTER")
   self.frames.MythicMondayFrame:EnableMouse(true)
   self.frames.MythicMondayFrame:SetMovable(true)
-  self.frames.MythicMondayFrame:SetScript("OnMouseDown", function(self, button) MythicMonday:HandleMouseDown(self, button) end)
-  self.frames.MythicMondayFrame:SetScript("OnMouseUp", function(self, button, isInside) MythicMonday:HandleMouseUp(self, button, isInside) end)
+  self.frames.MythicMondayFrame:SetScript(
+    "OnMouseDown",
+    function(self, button)
+      MythicMonday:HandleMouseDown(self, button)
+    end
+  )
+  self.frames.MythicMondayFrame:SetScript(
+    "OnMouseUp",
+    function(self, button, isInside)
+      MythicMonday:HandleMouseUp(self, button, isInside)
+    end
+  )
   -- self.frames.MythicMondayFrame:RegisterForDrag("LeftButton")
   -- self.frames.MythicMondayFrame:SetScript("OnDragStart", self.frames.MythicMondayFrame.StartMoving)
   -- self.frames.MythicMondayFrame:SetScript("OnDragStop", self.frames.MythicMondayFrame.StopMovingOrSizing)
@@ -138,8 +148,8 @@ function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io)
   local numChildren = select("#", rosterContainer:GetChildren())
   local top = playerHeight * numChildren
   frame:SetPoint("TOP", rosterContainer, "TOP", 0, -top)
-  -- local bgColor = MythicMonday:GetQualityColorByIO(io)
-  -- frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
+  local bgColor = MythicMonday:GetQualityColorByIO(io)
+  frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
   playerName:SetText(name)
@@ -159,6 +169,11 @@ function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class, io)
   frame:SetSize(playerWidth, playerHeight)
   frame:SetPoint("TOPLEFT", groupContainer, "TOPLEFT", playerWidth * ((frame:GetAttribute("index") % 5)), 0)
   local bgColor = MythicMonday:GetQualityColorByIO(io)
+  -- bgColor = MythicMonday:LerpColor(
+  --   (io % 500) / 500,
+  --   MythicMonday:GetQualityColorByIO(io),
+  --   MythicMonday:GetQualityColorByIO(io+500)
+  -- )
   frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 0.5)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")

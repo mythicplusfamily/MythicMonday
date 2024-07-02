@@ -25,6 +25,7 @@ function MythicMonday:Render()
     local groupFrame = MythicMonday:GetGroupFrame()
     for j=1,5 do
       local name, _, _, _, class = GetGuildRosterInfo(guildIndex)
+      if not name then return end
       local player = MythicMonday:GetGroupPlayerFrame(groupFrame, name, class, math.random(2000,3000))
       guildIndex = guildIndex + 1
     end
