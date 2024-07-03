@@ -48,11 +48,11 @@ function MythicMonday:GetGroupFrame()
   local length = #self.frames.MythicMondayGroupFrames
   if length == 0 then
     frame = self:CreateGroupFrame(length)
-    frame.inUse = true
+    frame:SetAttribute("inUse", true)
     return frame
   end
   for _,f in pairs(self.frames.MythicMondayGroupFrames) do
-    if not f.inUse then
+    if not f:GetAttribute("inUse") then
       frame = f
       break
     end
@@ -60,8 +60,7 @@ function MythicMonday:GetGroupFrame()
     if not frame then
       frame = self:CreateGroupFrame(length)
     end
-    -- frame:ClearAllPoints()
-    frame.inUse = true
+    frame:SetAttribute("inUse", true)
     return frame
   end
 end
@@ -188,11 +187,11 @@ function MythicMonday:GetPlayerFrame(container)
   local length = #self.frames.MythicMondayPlayerFrames
   if length == 0 then
     frame = self:CreatePlayerFrame(length, container)
-    frame.inUse = true
+    frame:SetAttribute("inUse", true)
     return frame
   end
   for _,f in pairs(self.frames.MythicMondayPlayerFrames) do
-    if not f.inUse then
+    if not f:GetAttribute("inUse") then
       frame = f
       break
     end
@@ -200,8 +199,7 @@ function MythicMonday:GetPlayerFrame(container)
     if not frame then
       frame = self:CreatePlayerFrame(length, container)
     end
-
-    frame.inUse = true
+    frame:SetAttribute("inUse", true)
     return frame
   end
 end
@@ -219,8 +217,23 @@ function MythicMonday:CreatePlayerFrame(index, container)
     frame:EnableMouse(true)
     frame:SetMovable(true)
     frame:RegisterForDrag("LeftButton")
-    frame:SetScript("OnDragStart", frame.StartMoving)
-    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    frame:SetScript("OnDragStart", function()
+      frame:SetAttribute("previousPosition", {frame:GetPoint()})
+      frame:StartMoving()
+    end)
+    frame:SetScript("OnDragStop", function()
+      frame:StopMovingOrSizing()
+      -- if is valid drop, set parent to new container, 
+      -- if is invalid drop, reset position to previous position
+---@diagnostic disable-next-line: param-type-mismatch, deprecated
+      local point, relativeTo, relativePoint, offsetX, offsetY = unpack(frame:GetAttribute("previousPosition"))
+      frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
+      -- local parent = frame:GetParent()
+      -- if parent then
+      --   print(frame:GetAttribute("previousPosition"))
+      --   MythicMonday:Debug(MythicMonday.const.d_debug, parent:GetName(), point, relativeTo, relativePoint, offsetX, offsetY)
+      -- end
+    end)
   end
   table.insert(self.frames.MythicMondayPlayerFrames, frame)
   return frame
@@ -228,5 +241,5 @@ end
 
 function MythicMonday:ReleaseFrame(frame)
   frame:Hide()
-  frame.inUse = false
+  frame:SetAttribute("inUse", false)
 end

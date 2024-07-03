@@ -19,7 +19,7 @@ end
 
 
 function MythicMonday:HandleMouseUp(self, button, isInside)
-  MythicMonday:Debug(MythicMonday.const.d_debug, isInside)
+  MythicMonday:Debug(MythicMonday.const.d_debug, "OnMouseUp:", self:GetName(), isInside)
   if button == "LeftButton" then
     self:StopMovingOrSizing()
   end
@@ -68,6 +68,7 @@ function MythicMonday:GetKeystoneAffixText(keystoneLevel)
     if k > stop then break end
     affixIds[k] = v.id
   end
+---@diagnostic disable-next-line: deprecated
   return MythicMonday:JoinStrings(":", unpack(affixIds))
 end
 
@@ -81,21 +82,28 @@ function MythicMonday:SplitString(inputstr, sep)
   for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
     table.insert(t, str)
   end
+---@diagnostic disable-next-line: deprecated
   return unpack(t)
 end
 
 function MythicMonday:JoinStrings(separator, ...)
   local argTable = {...}
-  if not separator then
-    self:Debug(self.const.d_warn, "no separator")
+  if not separator or #argTable == 0 then
+    self:Debug(self.const.d_warn, "no separator:", separator, "or no strings to join", argTable)
     return ""
   end
   return table.concat(argTable, separator)
 end
-
+local debugLabels = {
+  "|cffFF0000".. MythicMonday.const.ADDON_NAME .." Announce:|r",
+  "|cffFFFF00".. MythicMonday.const.ADDON_NAME .." Warn:|r",
+  "|cff00FF00".. MythicMonday.const.ADDON_NAME .." Info:|r",
+  "|cff00FFFF".. MythicMonday.const.ADDON_NAME .." Notice:|r",
+  "|cff888888".. MythicMonday.const.ADDON_NAME .." Debug:|r"
+}
 function MythicMonday:Debug(debugLevel, ...)
   if MythicMonday.const.isDebug and debugLevel <= MythicMonday.const.debugLevel then
-    print(debugLevel, ...)
+    print(debugLabels[debugLevel], ...)
   end
 end
 
