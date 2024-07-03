@@ -14,7 +14,7 @@ function TryRender()
   MythicMonday:Debug(MythicMonday.const.d_debug, "Frame Rendered")
   MythicMonday:Render()
   MythicMonday.events:RegisterEvents()
-  MythicMonday.frames.MythicMondayFrame:Show()
+  -- MythicMonday.frames.MythicMondayFrame:Show()
 end
 
 C_Timer.After(1, TryRender)
