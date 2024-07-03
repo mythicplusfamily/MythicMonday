@@ -231,7 +231,7 @@ function MythicMonday:CreatePlayerFrame(index, container)
       -- local parent = frame:GetParent()
       -- if parent then
       --   print(frame:GetAttribute("previousPosition"))
-      --   MythicMonday:Debug(MythicMonday.const.d_debug, parent:GetName(), point, relativeTo, relativePoint, offsetX, offsetY)
+      --   MythicMonday:Debug(MythicMonday.const.debug, parent:GetName(), point, relativeTo, relativePoint, offsetX, offsetY)
       -- end
     end)
   end

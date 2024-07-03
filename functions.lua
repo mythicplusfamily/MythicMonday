@@ -19,7 +19,7 @@ end
 
 
 function MythicMonday:HandleMouseUp(self, button, isInside)
-  MythicMonday:Debug(MythicMonday.const.d_debug, "OnMouseUp:", self:GetName(), isInside)
+  MythicMonday:Debug(MythicMonday.const.debug, "OnMouseUp:", self:GetName(), isInside)
   if button == "LeftButton" then
     self:StopMovingOrSizing()
   end
@@ -89,11 +89,12 @@ end
 function MythicMonday:JoinStrings(separator, ...)
   local argTable = {...}
   if not separator or #argTable == 0 then
-    self:Debug(self.const.d_warn, "no separator:", separator, "or no strings to join", argTable)
+    self:Debug(self.const.warn, "no separator:", separator, "or no strings to join", argTable)
     return ""
   end
   return table.concat(argTable, separator)
 end
+
 local debugLabels = {
   "|cffFF0000".. MythicMonday.const.ADDON_NAME .." Announce:|r",
   "|cffFFFF00".. MythicMonday.const.ADDON_NAME .." Warn:|r",

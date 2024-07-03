@@ -8,8 +8,10 @@ MythicMonday.const.ADDON_NAME = "Mythic Monday"
 MythicMonday.const.MAX_GROUPS = 8
 
 MythicMonday.const.isDebug = UnitName("player") == "Laserfox"
-MythicMonday.const.d_warn = 1
-MythicMonday.const.d_info = 2
-MythicMonday.const.d_notice = 3
-MythicMonday.const.d_debug = 4
-MythicMonday.const.debugLevel = MythicMonday.const.d_debug
+
+MythicMonday.const.announce = 1
+MythicMonday.const.warn = 2
+MythicMonday.const.info = 3
+MythicMonday.const.notice = 4
+MythicMonday.const.debug = 5
+MythicMonday.const.debugLevel = MythicMonday.const.info
