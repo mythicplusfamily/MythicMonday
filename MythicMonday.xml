@@ -19,7 +19,7 @@
     </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
-        <Texture parentKey="bg" setAllPoints="true">
+        <Texture setAllPoints="true">
           <Color r="0.1" g="0.1" b="0.1" a="1"/>
         </Texture>
       </Layer>
@@ -51,12 +51,12 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture parentKey="bg" setAllPoints="true">
+            <Texture setAllPoints="true">
               <Color r="0" g="0" b="0" a="0"/>
             </Texture>
           </Layer>
           <Layer level="OVERLAY">
-              <FontString name="$parentTitle" inherits="GameFontNormal"
+            <FontString name="$parentTitle" inherits="GameFontNormal"
                 text="Mythic Plus Family" justifyH="CENTER" justifyV="TOP">
               <Color r="1" g="1" b="1" a="1"/>
               <FontHeight val="24"/>
@@ -78,7 +78,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture parentKey="bg" setAllPoints="true">
+            <Texture setAllPoints="true">
               <Color r="0" g="0" b="0" a="1"/>
             </Texture>
           </Layer>
@@ -95,13 +95,39 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture parentKey="bg" setAllPoints="true">
-              <Color r="0" g="0" b="0" a="0.5"/>
+            <Texture setAllPoints="true">
+              <Color r="1" g="0" b="0" a="0.1"/>
             </Texture>
           </Layer>
         </Layers>
         <Frames>
-
+          <Frame name="MythicMondayEmptyGroup">
+            <Size x="500" y="40" />
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT" relativeTo="$parent">
+                <Offset>
+                  <AbsDimension x="0" y="0" />
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                  <Color r="0" g="0" b="0" a=".1"/>
+                </Texture>
+              </Layer>
+              <Layer level="DIALOG">
+                <FontString name="$parentTitle" inherits="GameFontNormal"
+                  text="Create a new group by dragging a player here" justifyH="CENTER" justifyV="TOP">
+                <Color r="1" g="1" b="1" a="1"/>
+                <FontHeight val="24"/>
+                <Anchors>
+                  <Anchor point="TOP" relativeTo="$parent" x="0" y="-10" />
+                </Anchors>
+              </FontString>
+              </Layer>
+            </Layers>
+          </Frame>
         </Frames>
       </Frame>
     </Frames>
@@ -112,7 +138,7 @@
     </Anchors>
     <Layers>
       <Layer level="BACKGROUND">
-        <Texture parentKey="bg" setAllPoints="true">
+        <Texture setAllPoints="true">
           <Color r="0" g="0" b="0" a="1"/>
         </Texture>
       </Layer>
@@ -125,7 +151,7 @@
  	  </KeyValues> -->
     <!-- <Layers>
       <Layer level="BACKGROUND">
-        <Texture parentKey="bg" setAllPoints="true">
+        <Texture setAllPoints="true">
           <Color r="0" g="0" b="0" a="0.5"/>
         </Texture>
       </Layer>
