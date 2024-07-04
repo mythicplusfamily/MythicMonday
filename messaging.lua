@@ -21,6 +21,10 @@ end
 
 function MythicMonday.msg:RegisterListeners()
   C_ChatInfo.RegisterAddonMessagePrefix(MythicMonday.const.ADDON_MESSAGE_PREFIX)
+  -- TODO: probably make an invisible frame to listen for events
+  if not MythicMonday.frames.MythicMondayFrame then
+    return
+  end
   MythicMonday.frames.MythicMondayFrame:RegisterEvent("CHAT_MSG_ADDON")
   MythicMonday.frames.MythicMondayFrame:SetScript("OnEvent", MythicMonday.msg.OnAddonMessage)
 end

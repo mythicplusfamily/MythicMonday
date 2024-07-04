@@ -12,11 +12,11 @@ function TryRender()
     return
   end
   MythicMonday:Debug(MythicMonday.const.debug, "Frame Rendered")
-  MythicMonday:Render()
+  -- MythicMonday:Render()
    -- TODO: need to sort out how i'm going to render UI before registering events
    -- attach even registration to UI creation?
   MythicMonday.events:RegisterEvents()
   -- MythicMonday.frames.MythicMondayFrame:Show()
 end
 
-C_Timer.After(1, TryRender)
+-- C_Timer.After(1, TryRender)

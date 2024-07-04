@@ -1,9 +1,22 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
-  <Frame virtual="true" name="MythicMondayContainerTemplate">
-    <Size x="900" y="600" />
+  <Frame name="MythicMondayContainer" enableMouse="true" movable="true">
+    <Size x="700" y="600" />
     <Anchors>
       <Anchor point="CENTER"/>
     </Anchors>
+    <Scripts>
+      <OnLoad>
+        self:RegisterForDrag("LeftButton")
+      </OnLoad>
+      <OnDragStart>
+        if not self.isLocked then
+            self:StartMoving()
+        end
+      </OnDragStart>
+      <OnDragStop>
+        self:StopMovingOrSizing()
+      </OnDragStop>
+    </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
@@ -21,71 +34,77 @@
         </FontString>
       </Layer>
     </Layers>
-  </Frame>
-  <Frame name="MythicMondayContainerTitleTemplate" virtual="true">
-    <Size x="900" y="40"/>
-    <Anchors>
-      <Anchor point="TOP">
-        <Offset>
-          <AbsDimension x="0" y="0" />
-        </Offset>
-      </Anchor>
-    </Anchors>
-    <Layers>
-      <Layer level="BACKGROUND">
-        <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="1"/>
-        </Texture>
-      </Layer>
-      <Layer level="OVERLAY">
-          <FontString name="$parentTitle" inherits="GameFontNormal"
-            text="Mythic Plus Family" justifyH="CENTER" justifyV="TOP">
-          <Color r="1" g="1" b="1" a="1"/>
-          <FontHeight val="24"/>
-          <Anchors>
-            <Anchor point="TOP" relativeTo="$parent" x="0" y="-10" />
-          </Anchors>
-          <!-- <Shadow>
-            <Offset x="1" y="1" />
-            <Color r="0" g="0" b="0"/>
-          </Shadow> -->
-        </FontString>
-      </Layer>
-    </Layers>
-  </Frame>
-  <Frame virtual="true" name="MythicMondayRosterContainerTemplate">
-    <Size x="200" y="600" />
-    <Anchors>
-      <Anchor point="LEFT">
-        <Offset>
-          <AbsDimension x="-200" y="00" />
-        </Offset>
-      </Anchor>
-    </Anchors>
-    <Layers>
-      <Layer level="BACKGROUND">
-        <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="1"/>
-        </Texture>
-      </Layer>
-    </Layers>
-  </Frame>
-  <Frame virtual="true" name="MythicMondayGroupsContainerTemplate">
-    <Size x="900" y="400" />
-    <Anchors>
-      <Anchor point="BOTTOM">
-        <Offset>
-          <AbsDimension x="0" y="60" />
-        </Offset>
-      </Anchor>
-    </Anchors>
-    <Layers>
-      <Layer level="BACKGROUND">
-        <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="0"/>
-        </Texture>
-      </Layer>
-    </Layers>
+    <Frames>
+      <Frame name="MythicMondayContainerTitle">
+        <Size x="500" y="40"/>
+        <Anchors>
+          <Anchor point="TOP" relativeTo="$parent">
+            <Offset>
+              <AbsDimension x="0" y="0" />
+            </Offset>
+          </Anchor>
+          <Anchor point="left" relativeTo="$parent">
+            <Offset>
+              <AbsDimension x="200" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="bg" setAllPoints="true">
+              <Color r="0" g="0" b="0" a="0"/>
+            </Texture>
+          </Layer>
+          <Layer level="OVERLAY">
+              <FontString name="$parentTitle" inherits="GameFontNormal"
+                text="Mythic Plus Family" justifyH="CENTER" justifyV="TOP">
+              <Color r="1" g="1" b="1" a="1"/>
+              <FontHeight val="24"/>
+              <Anchors>
+                <Anchor point="TOP" relativeTo="$parent" x="0" y="-10" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame  name="MythicMondayRosterContainer">
+        <Size x="200" y="600" />
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="0" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="bg" setAllPoints="true">
+              <Color r="0" g="0" b="0" a="1"/>
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame name="MythicMondayGroupsContainer">
+        <Size x="500" y="400" />
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativeTo="$parent">
+            <Offset>
+              <AbsDimension x="0" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="bg" setAllPoints="true">
+              <Color r="0" g="0" b="0" a="0.5"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Frames>
+
+        </Frames>
+      </Frame>
+    </Frames>
   </Frame>
   <Frame virtual="true" name="MythicMondayGroupTemplate">
     <Anchors>
