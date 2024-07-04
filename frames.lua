@@ -180,7 +180,7 @@ function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class, io)
   frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
-  playerName:SetText(name .. " " .. io)
+  playerName:SetText(name .. " |cffffd700" .. io)
   local color = MythicMonday:GetClassColor(class)
   playerName:SetTextColor(color.red, color.green, color.blue, 1)
   return frame
