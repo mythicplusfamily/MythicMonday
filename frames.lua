@@ -6,25 +6,28 @@ MythicMonday.frames.MythicMondayPlayerFrames = {}
 function MythicMonday:CreateMainFrame()
   self.frames.MythicMondayFrame = CreateFrame("Frame", "MythicMondayContainer", UIParent, "MythicMondayContainerTemplate")
   self.frames.MythicMondayFrame:SetPoint("CENTER")
-  self.frames.MythicMondayFrame:EnableMouse(true)
   self.frames.MythicMondayFrame:SetMovable(true)
-  self.frames.MythicMondayFrame:SetScript(
+  self.frames.MythicMondayFrame:EnableMouse(true)
+  self.frames.MythicMondayTitleFrame = CreateFrame("Frame", "MythicMondayContainerTitle", self.frames.MythicMondayFrame, "MythicMondayContainerTitleTemplate")
+  local title = self.frames.MythicMondayTitleFrame
+  title:EnableMouse(true)
+  title:SetScript(
     "OnMouseDown",
     function(self, button)
-      MythicMonday:HandleMouseDown(self, button)
+      MythicMonday:HandleMouseDown(MythicMonday.frames.MythicMondayFrame, button)
     end
   )
-  self.frames.MythicMondayFrame:SetScript(
+  title:SetScript(
     "OnMouseUp",
     function(self, button, isInside)
-      MythicMonday:HandleMouseUp(self, button, isInside)
+      MythicMonday:HandleMouseUp(MythicMonday.frames.MythicMondayFrame, button, isInside)
     end
   )
   -- self.frames.MythicMondayFrame:RegisterForDrag("LeftButton")
   -- self.frames.MythicMondayFrame:SetScript("OnDragStart", self.frames.MythicMondayFrame.StartMoving)
   -- self.frames.MythicMondayFrame:SetScript("OnDragStop", self.frames.MythicMondayFrame.StopMovingOrSizing)
-  local title = CreateFrame("Frame", "MythicMondayContainerTitle", self.frames.MythicMondayFrame, "MythicMondayContainerTitleTemplate")
-  title:SetPoint("TOP", 0, -20)
+  -- local title = CreateFrame("Frame", "MythicMondayContainerTitle", self.frames.MythicMondayFrame, "MythicMondayContainerTitleTemplate")
+  -- title:SetPoint("TOP", 0, -20)
   if not self.const.isDebug then 
     tinsert(UISpecialFrames, self.frames.MythicMondayFrame:GetName())
   end
@@ -32,7 +35,8 @@ end
 
 function MythicMonday:CreateRosterContainer()
   self.frames.MythicMondayRosterContainer = CreateFrame("Frame", "MythicMondayRosterContainer", self.frames.MythicMondayFrame, "MythicMondayRosterContainerTemplate")
-  local title = self.frames.MythicMondayRosterContainer:CreateFontString("ROSTER", "OVERLAY", "GameFontNormal")
+  self.frames.MythicMondayRosterContainer:EnableMouse(true)
+  local title = self.frames.MythicMondayRosterContainer:CreateFontString("RosterTitle", "OVERLAY", "GameFontNormal")
   title:SetPoint("TOP", 0, -15)
   title:SetText("Roster")
   return self.frames.MythicMondayRosterContainer
@@ -173,7 +177,7 @@ function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class, io)
   --   MythicMonday:GetQualityColorByIO(io),
   --   MythicMonday:GetQualityColorByIO(io+500)
   -- )
-  frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 0.5)
+  frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
   playerName:SetText(name .. " " .. io)

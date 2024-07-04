@@ -7,28 +7,50 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="0.75"/>
+          <Color r="0.1" g="0.1" b="0.1" a="1"/>
         </Texture>
+      </Layer>
+      <Layer level="BACKGROUND">
+        <FontString name="projectVersion" inherits="GameFontNormal" text="@project-version@"
+          justifyH="CENTER" justifyV="MIDDLE">
+          <Color r="1" g="1" b="1" a="0.5"/>
+          <FontHeight val="24"/>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" x="-10" y="10" />
+          </Anchors>
+        </FontString>
       </Layer>
     </Layers>
   </Frame>
   <Frame name="MythicMondayContainerTitleTemplate" virtual="true">
-    <Size x="900" y="100"/>
+    <Size x="900" y="40"/>
+    <Anchors>
+      <Anchor point="TOP">
+        <Offset>
+          <AbsDimension x="0" y="0" />
+        </Offset>
+      </Anchor>
+    </Anchors>
     <Layers>
-        <Layer>
-            <FontString name="$parentTitle" 
-              text="Mythic Plus Family" justifyH="CENTER" justifyV="TOP">
-            <Color r="1" g="0.8" b="1" a="1"/>
-            <FontHeight val="12"/>
-            <Anchors>
-            <Anchor point="TOP" relativeTo="$parent" x="0" y="-20" />
-            </Anchors>
-            <!-- <Shadow>
-              <Offset x="1" y="1" />
-              <Color r="0" g="0" b="0"/>
-            </Shadow> -->
-          </FontString>
-        </Layer>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="bg" setAllPoints="true">
+          <Color r="0" g="0" b="0" a="1"/>
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY">
+          <FontString name="$parentTitle" inherits="GameFontNormal"
+            text="Mythic Plus Family" justifyH="CENTER" justifyV="TOP">
+          <Color r="1" g="1" b="1" a="1"/>
+          <FontHeight val="24"/>
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" x="0" y="-10" />
+          </Anchors>
+          <!-- <Shadow>
+            <Offset x="1" y="1" />
+            <Color r="0" g="0" b="0"/>
+          </Shadow> -->
+        </FontString>
+      </Layer>
     </Layers>
   </Frame>
   <Frame virtual="true" name="MythicMondayRosterContainerTemplate">
@@ -53,7 +75,7 @@
     <Anchors>
       <Anchor point="BOTTOM">
         <Offset>
-          <AbsDimension x="0" y="10" />
+          <AbsDimension x="0" y="60" />
         </Offset>
       </Anchor>
     </Anchors>
@@ -72,7 +94,7 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="0"/>
+          <Color r="0" g="0" b="0" a="1"/>
         </Texture>
       </Layer>
     </Layers>

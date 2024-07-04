@@ -21,7 +21,7 @@ end
 function MythicMonday:Render()
   MythicMonday:CreateGroupsContainer()
   local guildIndex = 1
-  for i=1,8 do
+  for i=1,4 do
     local groupFrame = MythicMonday:GetGroupFrame()
     for j=1,5 do
       local name, _, _, _, class = GetGuildRosterInfo(guildIndex)

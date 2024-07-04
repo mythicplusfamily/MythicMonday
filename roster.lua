@@ -19,9 +19,4 @@ function FindKeystoneLink(inputString)
   local link = string.match(inputString, pattern)
   -- MythicMonday:Debug(MythicMonday.const.debug, "Link found", link)
   return link
-  -- if link then
-  --     return link
-  -- else
-  --     return nil
-  -- end
 end

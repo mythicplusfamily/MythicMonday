@@ -1,8 +1,8 @@
 ## Author: whatisboom
 ## Title: Mythic Monday
-## Version: 10.2.7-2
+## Version: @project-version@
 ## Interface: 100207
-## Notes: Stuff
+## Notes: Keystone sharing and group organizing
 
 libs/ChatThrottleLib.lua
 
