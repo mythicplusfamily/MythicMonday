@@ -4,7 +4,7 @@
     <Anchors>
       <Anchor point="CENTER"/>
     </Anchors>
-    <Scripts>
+    <!-- <Scripts>
       <OnLoad>
         self:RegisterForDrag("LeftButton")
       </OnLoad>
@@ -16,7 +16,7 @@
       <OnDragStop>
         self:StopMovingOrSizing()
       </OnDragStop>
-    </Scripts>
+    </Scripts> -->
     <Layers>
       <Layer level="BACKGROUND">
         <Texture setAllPoints="true">
@@ -59,7 +59,20 @@
             </OnClick>
         </Scripts>
       </Button>
-      <Frame name="MythicMondayContainerTitle">
+      <Frame name="MythicMondayContainerTitle" enableMouse="true">
+        <Scripts>
+          <OnLoad>
+            self:RegisterForDrag("LeftButton")
+          </OnLoad>
+          <OnDragStart>
+            if not _G["MythicMondayContainer"].isLocked then
+              _G["MythicMondayContainer"]:StartMoving()
+            end
+          </OnDragStart>
+          <OnDragStop>
+            _G["MythicMondayContainer"]:StopMovingOrSizing()
+          </OnDragStop>
+        </Scripts>
         <Size x="700" y="40"/>
         <Anchors>
           <Anchor point="TOPLEFT" relativeTo="$parent">
