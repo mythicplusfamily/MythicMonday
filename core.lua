@@ -1,6 +1,7 @@
 MythicMonday = MythicMonday or {}
 
 local function SlashCommand(arg) 
+  MythicMonday.frames.MythicMondayFrame = _G["MythicMondayContainer"]
   if arg == "s" or arg == "show" then
     if (MythicMonday.frames.MythicMondayFrame:IsShown()) then
       MythicMonday.frames.MythicMondayFrame:Hide()

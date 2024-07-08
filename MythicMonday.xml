@@ -35,6 +35,30 @@
       </Layer>
     </Layers>
     <Frames>
+      <Button name="MythicMondayContainerCloseButton" parent="MythicMondayContainer">
+        <Size x="20" y="20" />
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="$parent">
+            <Offset>
+              <AbsDimension x="0" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up">
+          <Color r="1" g="1" b="1" />
+        </NormalTexture>
+        <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down">
+          <Color r="1" g="1" b="1" />
+        </PushedTexture>
+        <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight">
+          <Color r="1" g="1" b="1" />
+        </HighlightTexture>
+        <Scripts>
+            <OnClick>
+                self:GetParent():Hide() -- Hide the parent frame when clicked
+            </OnClick>
+        </Scripts>
+      </Button>
       <Frame name="MythicMondayContainerTitle">
         <Size x="700" y="40"/>
         <Anchors>
