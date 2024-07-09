@@ -106,16 +106,17 @@ function MythicMonday:CreateKeystoneDropdown(frame)
     "Keystone 4",
     "Keystone 5",
   }
-  local function OnClick(self)
+  local function OnClick(self, value1, value2, isChecked)
     UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
-    MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
+    MythicMonday:Debug(MythicMonday.const.debug, "OnClick: value1, value2, isChecked", self:GetName(), value1, value2, isChecked)
+    -- MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
   end
   local function initialize(self, level)
     local info = UIDropDownMenu_CreateInfo()
-    for _,v in pairs(items) do
+    for k,v in pairs(items) do
+        MythicMonday:Debug(MythicMonday.const.debug, "Dropdown initialize: k, v", k, v)
         info = UIDropDownMenu_CreateInfo()
-        info.text = v
-        info.value = v
+        info.text, info.arg1 = "Index: " .. k, v
         info.func = OnClick
         UIDropDownMenu_AddButton(info, level)
     end
