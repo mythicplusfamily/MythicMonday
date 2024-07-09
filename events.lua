@@ -7,7 +7,7 @@ function MythicMonday.events:RegisterEvents()
   if not roster then
     return
   end
-  roster:RegisterEvent("CHAT_MSG_CHANNEL")
+  -- roster:RegisterEvent("CHAT_MSG_CHANNEL")
   roster:RegisterEvent("CHAT_MSG_GUILD")
   roster:RegisterEvent("CHAT_MSG_PARTY")
   roster:RegisterEvent("CHAT_MSG_PARTY_LEADER")

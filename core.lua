@@ -8,6 +8,9 @@ local function SlashCommand(arg)
       MythicMonday.frames.MythicMondayFrame:Show()
     end
   end
+  if arg == "debug" then
+    MythicMonday.const.isDebug = not MythicMonday.const.isDebug
+  end
 end
 
 

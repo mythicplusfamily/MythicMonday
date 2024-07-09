@@ -33,7 +33,6 @@
         </Anchors>
         <Scripts>
             <OnClick>
-                print(self:GetName().. " OnClick")
                 MythicMonday.msg:SendMessage("REQUEST_KEYSTONES")
             </OnClick>
         </Scripts>
