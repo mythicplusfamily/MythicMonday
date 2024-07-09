@@ -21,6 +21,24 @@
         </FontString>
       </Layer>
     </Layers>
+    <Frames>
+      <Button name="MythicMondayRequestKeystonesButton" text="Request Keystones" inherits="UIPanelButtonTemplate">
+        <Size x="200" y="30" />
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent">
+            <Offset>
+              <AbsDimension x="40" y="-40" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+            <OnClick>
+                print(self:GetName().. " OnClick")
+                MythicMonday.msg:SendMessage("REQUEST_KEYSTONES")
+            </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
   </Frame>
   <Frame name="MythicMondayContainerTitleTemplate" virtual="true">
     <Size x="900" y="40"/>
