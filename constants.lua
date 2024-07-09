@@ -15,7 +15,7 @@ MythicMonday.const.info = 3
 MythicMonday.const.notice = 4
 MythicMonday.const.debug = 5
 --@non-debug@
-MythicMonday.const.debugLevel = MythicMonday.const.debug
+MythicMonday.const.debugLevel = MythicMonday.const.warn
 --@end-non-debug@
 --@debug@
 MythicMonday.const.debugLevel = MythicMonday.const.debug

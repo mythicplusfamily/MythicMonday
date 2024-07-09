@@ -33,11 +33,13 @@ function MythicMonday:GetMythicKeystoneInfo()
   -- Get the Challenge Map ID and Keystone Level
   local challengeMapID = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
   local keystoneLevel = C_MythicPlus.GetOwnedKeystoneLevel()
-
+  local keystoneSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player")
+  local class = UnitClass("player")
   -- Check if the player has a Mythic+ Keystone
-  if challengeMapID and keystoneLevel then
+  if challengeMapID and keystoneLevel and keystoneSummary then
     -- Return the player's name, Challenge Map ID, and Keystone Level as a string
-    return MythicMonday:JoinStrings("-", "KEYSTONE", role, challengeMapID, keystoneLevel)
+    local io = keystoneSummary.currentSeasonScore
+    return MythicMonday:JoinStrings("-", "KEYSTONE", class, role, io, challengeMapID, keystoneLevel)
   else
     -- Return nil indicating that the player does not have a Mythic+ Keystone
     return nil
@@ -89,7 +91,7 @@ end
 function MythicMonday:JoinStrings(separator, ...)
   local argTable = {...}
   if not separator or #argTable == 0 then
-    self:Debug(self.const.warn, "no separator:", separator, "or no strings to join", argTable)
+    self:Debug(self.const.debug, "no separator:", separator, "or no strings to join", argTable)
     return ""
   end
   return table.concat(argTable, separator)

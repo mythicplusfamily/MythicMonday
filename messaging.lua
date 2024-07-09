@@ -4,7 +4,7 @@ MythicMonday.msg = MythicMonday.msg or {}
 
 function MythicMonday.msg:SendMessage(data)
   if not data then return end
-  MythicMonday:Debug(MythicMonday.const.info, "sending message", data)
+  MythicMonday:Debug(MythicMonday.const.debug, "sending message", data)
   -- C_ChatInfo.SendAddonMessage(MythicMonday.const.ADDON_MESSAGE_PREFIX, data, "GUILD")
   ChatThrottleLib:SendAddonMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, tostring(data), "GUILD")
 end
@@ -25,8 +25,10 @@ function MythicMonday.msg:RegisterListeners()
   MythicMonday.frames.MythicMondayFrame:SetScript("OnEvent", MythicMonday.msg.OnAddonMessage)
 end
 
-function MythicMonday.msg:OnKeyStoneMessage(player, message)
-  local type, role, mapId, keystoneLevel = MythicMonday:SplitString(message, '-')
-  MythicMonday:Debug(MythicMonday.const.debug, "OnKeyStoneMessage: ".. player .. " " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel))
+function MythicMonday.msg:OnKeyStoneMessage(author, message)
+  local type, class, role, io, mapId, keystoneLevel = MythicMonday:SplitString(message, '-')
+  MythicMonday:Debug(MythicMonday.const.debug, "OnKeyStoneMessage: ".. author .. " (".. io ..") " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel))
+  -- send to add player to roster
+  MythicMonday.roster:OnMessage('fake on keystone event', author, class, role, io, MythicMonday:GetKeystoneLink(mapId, keystoneLevel))
   -- ChatThrottleLib:SendChatMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, "OnKeyStoneMessage: ".. player .. " " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel), "PARTY")
 end

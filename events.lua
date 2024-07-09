@@ -18,6 +18,14 @@ end
 
 function MythicMonday.events:OnChatMessage(event, message, author)
   if event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" or event == "CHAT_MSG_GUILD" or event == "CHAT_MSG_WHISPER" then -- or event == "CHAT_MSG_GUILD"
-    MythicMonday.roster:OnMessage(event, author, message)
+    local name = MythicMonday:SplitString(author, "-")
+    local class = UnitClass(name)
+    local _, _, _, _, role = GetSpecializationInfoByID(GetInspectSpecialization(name))
+    local keystoneSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary(name)
+    local io = 0
+    if keystoneSummary then
+      io = keystoneSummary.currentSeasonScore or 0
+    end
+    MythicMonday.roster:OnMessage(event, author, class, role, io, message)
   end
 end

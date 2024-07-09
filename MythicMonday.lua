@@ -6,10 +6,13 @@ local attempts = 1
 function TryRender()
   
   local name = GetGuildRosterInfo(1)
-  if not name or attempts > 5 then
+  if not name then
+    attempts = attempts + 1
     print("Attempt: "..attempts)
+    if attempts >= 5 then
+      return
+    end
     C_Timer.After(1, TryRender)
-    return
   end
   MythicMonday:Debug(MythicMonday.const.debug, "Frame Rendered")
   MythicMonday:Render()
