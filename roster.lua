@@ -3,9 +3,10 @@ local MythicMonday = MythicMonday
 MythicMonday.roster = MythicMonday.roster or {}
 
 function MythicMonday.roster:OnMessage(event, author, message)
-  if event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" or event == "CHAT_MSG_GUILD" or event == "CHAT_MSG_WHISPER" then -- or event == "CHAT_MSG_GUILD"
+  if event == "CHAT_MSG_ADDON" or event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" or event == "CHAT_MSG_GUILD" or event == "CHAT_MSG_WHISPER" then -- or event == "CHAT_MSG_GUILD"
     local keystone = FindKeystoneLink(message)
     local class = UnitClass(author)
+    print("TEST", keystone)
     if keystone then
       MythicMonday:Debug(MythicMonday.const.debug, event, author, class, keystone)
     end

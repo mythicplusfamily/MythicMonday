@@ -55,7 +55,7 @@
         </HighlightTexture>
         <Scripts>
             <OnClick>
-                self:GetParent():Hide() -- Hide the parent frame when clicked
+                self:GetParent():Hide()
             </OnClick>
         </Scripts>
       </Button>
@@ -65,9 +65,7 @@
             self:RegisterForDrag("LeftButton")
           </OnLoad>
           <OnDragStart>
-            if not _G["MythicMondayContainer"].isLocked then
-              _G["MythicMondayContainer"]:StartMoving()
-            end
+            _G["MythicMondayContainer"]:StartMoving()
           </OnDragStart>
           <OnDragStop>
             _G["MythicMondayContainer"]:StopMovingOrSizing()
@@ -99,7 +97,7 @@
           </Layer>
         </Layers>
       </Frame>
-      <Frame  name="MythicMondayRosterContainer">
+      <Frame name="MythicMondayRosterContainer">
         <Size x="200" y="460" />
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -142,6 +140,27 @@
                 </Offset>
               </Anchor>
             </Anchors>
+            <Frames>
+              <Button name="MythicMondayAddPlayer" parent="MythicMondayEmptyGroup">
+                <Size x="20" y="20" />
+                <Anchors>
+                  <Anchor point="TOPRIGHT" relativeTo="$parent">
+                    <Offset>
+                      <AbsDimension x="0" y="0" />
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up">
+                  <Color r="1" g="1" b="1" />
+                </NormalTexture>
+                <Scripts>
+                    <OnClick>
+                        print(self:GetName())
+                        MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
+                    </OnClick>
+                </Scripts>
+              </Button>
+            </Frames>
             <Layers>
               <Layer level="BACKGROUND">
                 <Texture setAllPoints="true">
@@ -177,16 +196,34 @@
     </Layers>
   </Frame>
 
-  <Frame virtual="true" name="MythicMondayPlayerTemplate" inherits="">
-    <!-- <KeyValues>
- 		  <KeyValue key="backdropInfo" value="BACKDROP_ARENA_32_32" type="global" />
- 	  </KeyValues> -->
-    <!-- <Layers>
+  <Frame virtual="true" name="MythicMondayPlayerTemplate" inherits="" enableMouse="true">
+    <Scripts>
+      <OnLoad>
+        self:RegisterForDrag("LeftButton")
+      </OnLoad>
+      <OnDragStart>
+        self:StartMoving()
+      </OnDragStart>
+      <OnDragStop>
+        self:StopMovingOrSizing()
+      </OnDragStop>
+    </Scripts>
+    <Layers>
       <Layer level="BACKGROUND">
         <Texture setAllPoints="true">
-          <Color r="0" g="0" b="0" a="0.5"/>
+          <Color r="0" g="0" b="0" a="1"/>
         </Texture>
       </Layer>
-    </Layers> -->
+      <Layer level="OVERLAY">
+        <FontString name="$parentTitle" inherits="GameFontNormal"
+            text="Player Frame" justifyH="CENTER" justifyV="TOP">
+          <Color r="1" g="1" b="1" a="1"/>
+          <FontHeight val="24"/>
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" x="0" y="-10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
   </Frame>
 </Ui>
