@@ -35,11 +35,12 @@ function MythicMonday:GetMythicKeystoneInfo()
   local keystoneLevel = C_MythicPlus.GetOwnedKeystoneLevel()
   local keystoneSummary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary("player")
   local class = UnitClass("player")
+  local _, ilvl = GetAverageItemLevel()
   -- Check if the player has a Mythic+ Keystone
   if challengeMapID and keystoneLevel and keystoneSummary then
     -- Return the player's name, Challenge Map ID, and Keystone Level as a string
     local io = keystoneSummary.currentSeasonScore
-    return MythicMonday:JoinStrings("-", "KEYSTONE", class, role, io, challengeMapID, keystoneLevel)
+    return MythicMonday:JoinStrings("-", "KEYSTONE", class, role, io, challengeMapID, keystoneLevel, ilvl)
   else
     -- Return nil indicating that the player does not have a Mythic+ Keystone
     return nil

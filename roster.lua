@@ -2,11 +2,11 @@ local MythicMonday = MythicMonday
 
 MythicMonday.roster = MythicMonday.roster or {}
 
-function MythicMonday.roster:OnMessage(event, author, class, role, io, message)
+function MythicMonday.roster:OnMessage(event, author, class, role, io, message, ilvl)
   local keystone = FindKeystoneLink(message)
   if keystone then
-    MythicMonday:Debug(MythicMonday.const.debug, event, author, class, role, io, keystone)
-    MythicMonday.roster:AddPlayerToRoster(author, class, role, io, keystone)
+    MythicMonday:Debug(MythicMonday.const.debug, event, author, class, role, io, keystone, ilvl)
+    MythicMonday.roster:AddPlayerToRoster(author, class, role, io, keystone, ilvl)
   end
   -- send to add player to roster
 end
@@ -21,6 +21,6 @@ function FindKeystoneLink(inputString)
   return link
 end
 
-function MythicMonday.roster:AddPlayerToRoster(author, class, role, io, keystone)
-  MythicMonday:Debug(MythicMonday.const.debug, 'AddPlayerToRoster', author, class, role, io, keystone)
+function MythicMonday.roster:AddPlayerToRoster(author, class, role, io, keystone, ilvl)
+  MythicMonday:Debug(MythicMonday.const.debug, 'AddPlayerToRoster', author, class, role, io, keystone, ilvl)
 end
