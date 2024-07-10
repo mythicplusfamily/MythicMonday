@@ -23,15 +23,15 @@ end
 
 function MythicMonday.roster:AddPlayerToRoster(name, class, role, io, keystone, ilvl)
   local rosterContainer = MythicMonday.frames.MythicMondayRosterContainer
-  local rosterChildren = rosterContainer:GetChildren()
-  if rosterChildren then
-    MythicMonday:Debug(MythicMonday.const.debug, "Length: ", #rosterChildren)
-  end
-  for key, value in pairs(rosterChildren or {}) do
-    if key == 0 then
-      -- MythicMonday:Debug(MythicMonday.const.debug, "rosterChildren: key, value", key, value:GetName())
+  local rosterChildren = {rosterContainer:GetChildren()}
+  local numChildren = select("#", rosterContainer:GetChildren())
+  for _, value in ipairs(rosterChildren) do
+---@diagnostic disable-next-line: deprecated
+    local existing = unpack(value:GetAttribute("character"))
+    if existing == name then
+      MythicMonday:Debug(MythicMonday.const.warn, "AddPlayerToRoster: character already exists in roster:", existing)
+      return
     end
-    -- MythicMonday:Debug(MythicMonday.const.debug, "rosterChildren: key, value", key, value)
   end
   if not rosterContainer then
     MythicMonday:Debug(MythicMonday.const.warn, "No roster container found")
@@ -39,10 +39,10 @@ function MythicMonday.roster:AddPlayerToRoster(name, class, role, io, keystone, 
   local rosterPlayerFrame = MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io, ilvl)
   rosterPlayerFrame:SetAttribute("character", {
     name,
-    class,
-    role,
-    io,
-    ilvl,
+    class, -- nil
+    role, -- nil
+    io, -- 0
+    ilvl, -- nil
     keystone
   })
   rosterPlayerFrame:SetScript("OnMouseDown", function() 

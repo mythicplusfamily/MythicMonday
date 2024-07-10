@@ -31,7 +31,7 @@ end
 
 function MythicMonday.msg:OnKeyStoneMessage(author, message)
   local type, class, role, io, mapId, keystoneLevel, ilvl = MythicMonday:SplitString(message, '-')
-  MythicMonday:Debug(MythicMonday.const.debug, "OnKeyStoneMessage: ".. author .. " (".. io ..") " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel))
+  -- MythicMonday:Debug(MythicMonday.const.debug, "OnKeyStoneMessage: ".. author .. " (".. io ..") " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel))
   -- send to add player to roster
   MythicMonday.roster:OnMessage('OnKeyStoneMessage', author, class, role, io, MythicMonday:GetKeystoneLink(mapId, keystoneLevel), ilvl)
   -- ChatThrottleLib:SendChatMessage("BULK", MythicMonday.const.ADDON_MESSAGE_PREFIX, "OnKeyStoneMessage: ".. player .. " " .. MythicMonday:GetKeystoneLink(mapId, keystoneLevel), "PARTY")
