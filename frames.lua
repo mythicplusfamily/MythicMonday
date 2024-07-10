@@ -157,8 +157,8 @@ function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io, ilv
   local numChildren = select("#", rosterContainer:GetChildren())
   local top = playerHeight * numChildren
   frame:SetPoint("TOP", rosterContainer, "TOP", 0, -top)
-  local bgColor = MythicMonday:GetQualityColorByIO(io)
-  frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
+  local red, green, blue = MythicMonday:GetPlayerIOColor(io)
+  frame:SetBackdropColor(red, green, blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
   playerName:SetText(name .. " |cffffd700" .. (ilvl or ""))
@@ -177,13 +177,8 @@ function MythicMonday:GetGroupPlayerFrame(groupContainer, name, class, io)
   local playerHeight = groupContainerHeight - (padding * 2)
   frame:SetSize(playerWidth, playerHeight)
   frame:SetPoint("TOPLEFT", groupContainer, "TOPLEFT", playerWidth * ((frame:GetAttribute("index") % 5)), 0)
-  local bgColor = MythicMonday:GetQualityColorByIO(io)
-  -- bgColor = MythicMonday:LerpColor(
-  --   (io % 500) / 500,
-  --   MythicMonday:GetQualityColorByIO(io),
-  --   MythicMonday:GetQualityColorByIO(io+500)
-  -- )
-  frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
+  local red, green, blue = MythicMonday:GetPlayerIOColor(io)
+  frame:SetBackdropColor(red, green, blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
   playerName:SetText(name .. " |cffffd700" .. io)

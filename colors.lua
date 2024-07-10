@@ -8,7 +8,6 @@ MythicMonday.colors.qualityColors = {
     Rare = { red = 0, green = 0.4392, blue = 0.8667 },             -- Blue
     Epic = { red = 0.6392, green = 0.2078, blue = 0.9333 },      -- Purple
     Legendary = { red = 1, green = 0.502, blue = 0 },        -- Orange
-    Artifact = { red = 0.902, green = 20.8, blue = 0.502 }  -- Light Gold
 }
 
 MythicMonday.colors.classColors = {

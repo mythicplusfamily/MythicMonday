@@ -111,19 +111,37 @@ function MythicMonday:Debug(debugLevel, ...)
   end
 end
 
-function MythicMonday:LerpColor(t, color1, color2)
-  local red = math.floor(color1.red + t * (color2.red - color1.red))
-  local green = math.floor(color1.green + t * (color2.green - color1.green))
-  local blue = math.floor(color1.blue + t * (color2.blue - color1.blue))
-  return { red, green, blue }
+function MythicMonday:LerpColors(amount, color1, color2)
+  local red = MythicMonday:LerpColor(amount, color1.red, color2.red)
+  local green = MythicMonday:LerpColor(amount, color1.green, color2.green)
+  local blue = MythicMonday:LerpColor(amount, color1.blue, color2.blue)
+  return red, green, blue
+end
+
+function MythicMonday:LerpColor(amount, color1, color2)
+  return Round(Lerp(color1, color2, amount), 2)
+end
+
+function Lerp(v0, v1, t)
+  return v0 + (v1 - v0) * t
+end
+
+function Round(num, numDecimalPlaces)
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+function MythicMonday:GetPlayerIOColor(io)
+  local amount = (io % 500) / 500
+  local startColor = MythicMonday:GetQualityColorByIO(io)
+  local endColor = MythicMonday:GetQualityColorByIO(io+501)
+  return MythicMonday:LerpColors(amount, startColor, endColor)
 end
 
 function MythicMonday:GetQualityColorByIO(io)
   local color = MythicMonday.colors.qualityColors["Poor"]
   io = tonumber(io)
-  if io > 3000 then
-    color = MythicMonday.colors.qualityColors["Artifact"]
-  elseif io > 2500 then
+  if io > 2500 then
     color = MythicMonday.colors.qualityColors["Legendary"]
   elseif io > 2000 then
     color = MythicMonday.colors.qualityColors["Epic"]
@@ -133,6 +151,8 @@ function MythicMonday:GetQualityColorByIO(io)
     color = MythicMonday.colors.qualityColors["Uncommon"]
   elseif io > 500 then
     color = MythicMonday.colors.qualityColors["Common"]
+  elseif io >= 0 then
+    color = MythicMonday.colors.qualityColors["Poor"]
   end
   return color
 end
