@@ -34,17 +34,17 @@ function MythicMonday:CreateMainFrame()
 end
 
 function MythicMonday:CreateRosterContainer()
-  self.frames.MythicMondayRosterContainer = CreateFrame("Frame", "MythicMondayRosterContainer", self.frames.MythicMondayFrame, "MythicMondayRosterContainerTemplate")
-  self.frames.MythicMondayRosterContainer:EnableMouse(true)
-  local title = self.frames.MythicMondayRosterContainer:CreateFontString("RosterTitle", "OVERLAY", "GameFontNormal")
+  MythicMonday.frames.MythicMondayRosterContainer = CreateFrame("Frame", "MythicMondayRosterContainer", self.frames.MythicMondayFrame, "MythicMondayRosterContainerTemplate")
+  MythicMonday.frames.MythicMondayRosterContainer:EnableMouse(true)
+  local title = MythicMonday.frames.MythicMondayRosterContainer:CreateFontString("RosterTitle", "OVERLAY", "GameFontNormal")
   title:SetPoint("TOP", 0, -15)
   title:SetText("Roster")
-  return self.frames.MythicMondayRosterContainer
+  return MythicMonday.frames.MythicMondayRosterContainer
 end
 
 function MythicMonday:CreateGroupsContainer()
-  self.frames.MythicMondayGroupsContainer = CreateFrame("Frame", "MythicMondayGroupsContainer", self.frames.MythicMondayFrame, "MythicMondayGroupsContainerTemplate")
-  return self.frames.MythicMondayGroupsContainer
+  MythicMonday.frames.MythicMondayGroupsContainer = CreateFrame("Frame", "MythicMondayGroupsContainer", self.frames.MythicMondayFrame, "MythicMondayGroupsContainerTemplate")
+  return MythicMonday.frames.MythicMondayGroupsContainer
 end
 
 function MythicMonday:GetGroupFrame()

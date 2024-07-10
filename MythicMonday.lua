@@ -2,13 +2,13 @@ local MythicMonday = MythicMonday
 MythicMonday:Init()
 MythicMonday.msg:RegisterListeners()
 MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
-local attempts = 1
+  local attempts = 1
 function TryRender()
   
   local name = GetGuildRosterInfo(1)
   if not name then
     attempts = attempts + 1
-    print("Attempt: "..attempts)
+    MythicMonday:Debug(MythicMonday.const.debug, "Attempt: "..attempts)
     if attempts >= 5 then
       return
     end
