@@ -113,10 +113,15 @@ function MythicMonday:CreateKeystoneDropdown(frame)
   end
   local function initialize(self, level)
     local info = UIDropDownMenu_CreateInfo()
-    for k,v in pairs(items) do
-        MythicMonday:Debug(MythicMonday.const.debug, "Dropdown initialize: k, v", k, v)
+
+    -- get all players in the row
+    -- extract attribute holding keystone string
+    -- set item [index] to keystone string
+
+    for index, value in pairs(items) do
+        MythicMonday:Debug(MythicMonday.const.debug, "Dropdown initialize: index, value", index, value)
         info = UIDropDownMenu_CreateInfo()
-        info.text, info.arg1 = "Index: " .. k, v
+        info.text, info.arg1 = "Index: " .. index, value
         info.func = OnClick
         UIDropDownMenu_AddButton(info, level)
     end
@@ -140,7 +145,7 @@ function MythicMonday:ComputeItemHeightAndOffset(index, parentHeight, padding, n
   return itemHeight, topOffset
 end
 
-function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io)
+function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io, ilvl)
   local frame = self:GetPlayerFrame(rosterContainer)
   -- local padding = 0
   -- local containerHeight = rosterContainer:GetHeight()
@@ -156,7 +161,7 @@ function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io)
   frame:SetBackdropColor(bgColor.red, bgColor.green, bgColor.blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   playerName:SetPoint("CENTER")
-  playerName:SetText(name)
+  playerName:SetText(name .. " |cffffd700" .. (ilvl or ""))
   local color = MythicMonday:GetClassColor(class)
   playerName:SetTextColor(color.red, color.green, color.blue, 1)
   return frame

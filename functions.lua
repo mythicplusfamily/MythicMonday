@@ -120,6 +120,7 @@ end
 
 function MythicMonday:GetQualityColorByIO(io)
   local color = MythicMonday.colors.qualityColors["Poor"]
+  io = tonumber(io)
   if io > 3000 then
     color = MythicMonday.colors.qualityColors["Artifact"]
   elseif io > 2500 then

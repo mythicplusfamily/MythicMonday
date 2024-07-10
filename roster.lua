@@ -21,6 +21,34 @@ function FindKeystoneLink(inputString)
   return link
 end
 
-function MythicMonday.roster:AddPlayerToRoster(author, class, role, io, keystone, ilvl)
-  MythicMonday:Debug(MythicMonday.const.debug, 'AddPlayerToRoster', author, class, role, io, keystone, ilvl)
+function MythicMonday.roster:AddPlayerToRoster(name, class, role, io, keystone, ilvl)
+  local rosterContainer = MythicMonday.frames.MythicMondayRosterContainer
+  local rosterChildren = rosterContainer:GetChildren()
+  if rosterChildren then
+    MythicMonday:Debug(MythicMonday.const.debug, "Length: ", #rosterChildren)
+  end
+  for key, value in pairs(rosterChildren or {}) do
+    if key == 0 then
+      -- MythicMonday:Debug(MythicMonday.const.debug, "rosterChildren: key, value", key, value:GetName())
+    end
+    -- MythicMonday:Debug(MythicMonday.const.debug, "rosterChildren: key, value", key, value)
+  end
+  if not rosterContainer then
+    MythicMonday:Debug(MythicMonday.const.warn, "No roster container found")
+  end
+  local rosterPlayerFrame = MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io, ilvl)
+  rosterPlayerFrame:SetAttribute("character", {
+    name,
+    class,
+    role,
+    io,
+    ilvl,
+    keystone
+  })
+  rosterPlayerFrame:SetScript("OnMouseDown", function() 
+---@diagnostic disable-next-line: deprecated
+    MythicMonday:Debug(MythicMonday.const.debug, unpack(rosterPlayerFrame:GetAttribute("character")))
+  end)
+---@diagnostic disable-next-line: deprecated
+  MythicMonday:Debug(MythicMonday.const.debug, "AddPlayerToRoster", unpack(rosterPlayerFrame:GetAttribute("character")))
 end
