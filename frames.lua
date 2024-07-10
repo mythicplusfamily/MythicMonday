@@ -34,17 +34,17 @@ function MythicMonday:CreateMainFrame()
 end
 
 function MythicMonday:CreateRosterContainer()
-  MythicMonday.frames.MythicMondayRosterContainer = CreateFrame("Frame", "MythicMondayRosterContainer", self.frames.MythicMondayFrame, "MythicMondayRosterContainerTemplate")
-  MythicMonday.frames.MythicMondayRosterContainer:EnableMouse(true)
-  local title = MythicMonday.frames.MythicMondayRosterContainer:CreateFontString("RosterTitle", "OVERLAY", "GameFontNormal")
+  self.frames.MythicMondayRosterContainer = CreateFrame("Frame", "MythicMondayRosterContainer", self.frames.MythicMondayFrame, "MythicMondayRosterContainerTemplate")
+  self.frames.MythicMondayRosterContainer:EnableMouse(true)
+  local title = self.frames.MythicMondayRosterContainer:CreateFontString("RosterTitle", "OVERLAY", "GameFontNormal")
   title:SetPoint("TOP", 0, -15)
   title:SetText("Roster")
-  return MythicMonday.frames.MythicMondayRosterContainer
+  return self.frames.MythicMondayRosterContainer
 end
 
 function MythicMonday:CreateGroupsContainer()
-  MythicMonday.frames.MythicMondayGroupsContainer = CreateFrame("Frame", "MythicMondayGroupsContainer", self.frames.MythicMondayFrame, "MythicMondayGroupsContainerTemplate")
-  return MythicMonday.frames.MythicMondayGroupsContainer
+  self.frames.MythicMondayGroupsContainer = CreateFrame("Frame", "MythicMondayGroupsContainer", self.frames.MythicMondayFrame, "MythicMondayGroupsContainerTemplate")
+  return self.frames.MythicMondayGroupsContainer
 end
 
 function MythicMonday:GetGroupFrame()
@@ -99,16 +99,18 @@ function MythicMonday:CreateKeystoneDropdown(frame)
   dropdown:SetWidth(80)
   UIDropDownMenu_SetWidth(dropdown, 80)
   UIDropDownMenu_SetText(dropdown, "Select a Keystone")
+  UIDropDownMenu_SetAnchor(dropdown, dropdown:GetWidth()/2, 20, "TOPRIGHT", nil, "BOTTOMRIGHT")
+
   local items = {
-    "Keystone 1",
-    "Keystone 2",
-    "Keystone 3",
-    "Keystone 4",
-    "Keystone 5",
+    "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: The Azure Vault (420)]\124h\124r",
+    "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: Neltharus (311)]\124h\124r",
+    "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: Ruby Life Pools (666)]\124h\124r",
+    "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: That One That Sucks (-1)]\124h\124r",
+    "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: I Hate This Game (69)]\124h\124r",
   }
-  local function OnClick(self, value1, value2, isChecked)
+  local function OnClick(self, arg1, arg2, isChecked)
     UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
-    MythicMonday:Debug(MythicMonday.const.debug, "OnClick: value1, value2, isChecked", self:GetName(), value1, value2, isChecked)
+    MythicMonday:Debug(MythicMonday.const.debug, "OnClick: value1, value2", arg1, arg2)
     -- MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
   end
   local function initialize(self, level)
@@ -119,10 +121,14 @@ function MythicMonday:CreateKeystoneDropdown(frame)
     -- set item [index] to keystone string
 
     for index, value in pairs(items) do
-        MythicMonday:Debug(MythicMonday.const.debug, "Dropdown initialize: index, value", index, value)
+        -- MythicMonday:Debug(MythicMonday.const.debug, "Dropdown initialize: index, value", index, value)
         info = UIDropDownMenu_CreateInfo()
-        info.text, info.arg1 = "Index: " .. index, value
+        info.text = value -- maybe parse and shorten to the dungeon acronym?
+        -- info.value = index
+        info.arg1 = index
+        info.arg2 = value
         info.func = OnClick
+        
         UIDropDownMenu_AddButton(info, level)
     end
     return dropdown

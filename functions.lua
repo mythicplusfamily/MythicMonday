@@ -141,18 +141,16 @@ end
 function MythicMonday:GetQualityColorByIO(io)
   local color = MythicMonday.colors.qualityColors["Poor"]
   io = tonumber(io)
-  if io > 2500 then
+  if io >= 2500 then
     color = MythicMonday.colors.qualityColors["Legendary"]
-  elseif io > 2000 then
+  elseif io >= 2000 then
     color = MythicMonday.colors.qualityColors["Epic"]
-  elseif io > 1500 then
+  elseif io >= 1500 then
     color = MythicMonday.colors.qualityColors["Rare"]
-  elseif io > 1000 then
+  elseif io >= 1000 then
     color = MythicMonday.colors.qualityColors["Uncommon"]
-  elseif io > 500 then
+  elseif io >= 500 then
     color = MythicMonday.colors.qualityColors["Common"]
-  elseif io >= 0 then
-    color = MythicMonday.colors.qualityColors["Poor"]
   end
   return color
 end

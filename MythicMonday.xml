@@ -60,7 +60,7 @@
           <Color r="1" g="1" b="1" a="1"/>
           <FontHeight val="24"/>
           <Anchors>
-            <Anchor point="TOP" relativeTo="$parent" x="0" y="-10" />
+            <Anchor point="TOP" relativeTo="$parent" x="-75" y="-10" />
           </Anchors>
           <!-- <Shadow>
             <Offset x="1" y="1" />
