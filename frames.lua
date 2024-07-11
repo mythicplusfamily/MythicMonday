@@ -81,10 +81,9 @@ function MythicMonday:CreateGroupFrame(index)
   local frame = CreateFrame("Frame", "GroupFrame"..index, groupContainer, "MythicMondayGroupTemplate")
   frame:SetAttribute("index", index)
   frame:SetSize(groupWidth, groupHeight)
-  frame:SetPoint("LEFT", padding/2, 0)
-  frame:SetPoint("TOP", 0, topOffset)
+  frame:SetPoint("TOPLEFT", padding/2, topOffset)
   frame:SetScript("OnMouseUp", function(self, button, isInside)
-    print("mouseUp", isInside, self:GetName())
+    MythicMonday:Debug(MythicMonday.const.debug, self:GetName(), isInside, self:GetPoint())
   end)
   table.insert(self.frames.MythicMondayGroupFrames, frame)
   self:CreateKeystoneDropdown(frame)
@@ -108,10 +107,14 @@ function MythicMonday:CreateKeystoneDropdown(frame)
     "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: That One That Sucks (-1)]\124h\124r",
     "\124cffa335ee\124Hitem:138019:404:140:141:142:\124h[Mythic Keystone: I Hate This Game (69)]\124h\124r",
   }
-  local function OnClick(self, arg1, arg2, isChecked)
+  local function OnClick(self, arg1, arg2)
     UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
-    MythicMonday:Debug(MythicMonday.const.debug, "OnClick: value1, value2", arg1, arg2)
-    -- MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
+    MythicMonday:Debug(MythicMonday.const.debug, "OnClick: ", arg1, arg2)
+    -- get containing group container
+    -- get child frames
+    -- get names of characters in those frames
+    -- send message to player with addon with group info and command to invite
+    -- else whisper tank/healer/fallback to invite the rest of the group 
   end
   local function initialize(self, level)
     local info = UIDropDownMenu_CreateInfo()
@@ -162,7 +165,7 @@ function MythicMonday:GetRosterPlayerFrame(rosterContainer, name, class, io, ilv
   frame:SetSize(playerWidth, playerHeight)
   local numChildren = select("#", rosterContainer:GetChildren())
   local top = playerHeight * numChildren
-  frame:SetPoint("TOP", rosterContainer, "TOP", 0, -top)
+  frame:SetPoint("TOPLEFT", rosterContainer, "TOPLEFT", 0, -top)
   local red, green, blue = MythicMonday:GetPlayerIOColor(io)
   frame:SetBackdropColor(red, green, blue, 1)
   local playerName = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -230,7 +233,10 @@ function MythicMonday:CreatePlayerFrame(index, container)
     frame:RegisterForDrag("LeftButton")
     frame:SetScript("OnDragStart", function()
       frame:SetAttribute("previousPosition", {frame:GetPoint()})
-      frame:StartMoving()
+      -- MythicMonday:Debug(MythicMonday.const.debug, select(2, unpack(frame:GetAttribute("previousPosition"))):GetName())
+      local x, y = GetCursorPosition()
+      frame:SetAttribute("startingCursor", { x, y })
+      frame:StartMoving(true)
     end)
     frame:SetScript("OnDragStop", function()
       frame:StopMovingOrSizing()
@@ -238,6 +244,32 @@ function MythicMonday:CreatePlayerFrame(index, container)
       -- if is invalid drop, reset position to previous position
 ---@diagnostic disable-next-line: param-type-mismatch, deprecated
       local point, relativeTo, relativePoint, offsetX, offsetY = unpack(frame:GetAttribute("previousPosition"))
+      local parentWidth = relativeTo:GetWidth()
+      local frameHeight = relativeTo:GetHeight()
+      local scale = UIParent:GetEffectiveScale()
+      local prevX, prevY = unpack(frame:GetAttribute("startingCursor"))
+      local currX, currY = GetCursorPosition()
+      
+      local diffX = (currX - prevX) / scale
+      local diffY = (currY - prevY) / scale
+
+      local heightAbove = offsetY
+      local heightBelow = frameHeight - offsetY
+
+      -- MythicMonday:Debug(MythicMonday.const.debug, "diffY, heightAbove, heightBelow", diffY, heightAbove, heightBelow)
+
+      local isInsideGroupsContainerX = diffX > parentWidth and diffX < MythicMonday.frames.MythicMondayFrame:GetWidth()
+      local isInsideGroupsContainerY = false
+      if diffY > 0 and diffY < heightAbove then
+        isInsideGroupsContainerY = true
+      elseif diffY <= 0 and abs(diffY) < heightBelow then
+        isInsideGroupsContainerY = true
+      end
+      
+      MythicMonday:Debug(MythicMonday.const.debug, "isInsideGroupsContainerX, isInsideGroupsContainerY", isInsideGroupsContainerX, isInsideGroupsContainerY)
+      -- MythicMonday:Debug(MythicMonday.const.debug, "frameParent, relativeTo", frame:GetParent():GetName(), relativeTo:GetName())
+      -- MythicMonday:Debug(MythicMonday.const.debug, "point, relativeTo, relativePoint, offsetX, offsetY", point, relativeTo:GetName(), relativePoint, offsetX, offsetY)
+      MythicMonday:Debug(MythicMonday.const.debug, "movement", diffX, diffY)
       frame:SetPoint(point, relativeTo, relativePoint, offsetX, offsetY)
       -- local parent = frame:GetParent()
       -- if parent then

@@ -25,9 +25,9 @@
       <Button name="MythicMondayRequestKeystonesButton" text="Request Keystones" inherits="UIPanelButtonTemplate">
         <Size x="200" y="30" />
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent">
+          <Anchor point="TOPRIGHT" relativeTo="$parent">
             <Offset>
-              <AbsDimension x="20" y="-60" />
+              <AbsDimension x="-10" y="-15" />
             </Offset>
           </Anchor>
         </Anchors>
@@ -40,11 +40,16 @@
     </Frames>
   </Frame>
   <Frame name="MythicMondayContainerTitleTemplate" virtual="true">
-    <Size x="900" y="40"/>
+    <Size x="1100" y="40"/>
     <Anchors>
-      <Anchor point="TOP">
+      <Anchor point="TOPLEFT">
         <Offset>
-          <AbsDimension x="0" y="0" />
+          <AbsDimension x="-200" y="40" />
+        </Offset>
+      </Anchor>
+      <Anchor point="TOPRIGHT">
+        <Offset>
+          <AbsDimension x="0" y="40" />
         </Offset>
       </Anchor>
     </Anchors>
@@ -60,7 +65,7 @@
           <Color r="1" g="1" b="1" a="1"/>
           <FontHeight val="24"/>
           <Anchors>
-            <Anchor point="TOP" relativeTo="$parent" x="-75" y="-10" />
+            <Anchor point="TOP" relativeTo="$parent" x="0" y="-15" />
           </Anchors>
           <!-- <Shadow>
             <Offset x="1" y="1" />
@@ -82,7 +87,7 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="1"/>
+          <Color r="0" g="0" b="0" a="0.5"/>
         </Texture>
       </Layer>
     </Layers>
@@ -90,9 +95,9 @@
   <Frame virtual="true" name="MythicMondayGroupsContainerTemplate">
     <Size x="900" y="400" />
     <Anchors>
-      <Anchor point="BOTTOM">
+      <Anchor point="TOPLEFT">
         <Offset>
-          <AbsDimension x="0" y="60" />
+          <AbsDimension x="0" y="-60" />
         </Offset>
       </Anchor>
     </Anchors>
@@ -111,7 +116,7 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="bg" setAllPoints="true">
-          <Color r="0" g="0" b="0" a="1"/>
+          <Color r="0" g="0" b="0" a="0.5"/>
         </Texture>
       </Layer>
     </Layers>

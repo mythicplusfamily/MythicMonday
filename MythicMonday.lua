@@ -1,9 +1,6 @@
 local MythicMonday = MythicMonday
 MythicMonday:Init()
 
-if not MythicMonday.const.isDebug then
-  MythicMonday.msg:SendMessage(MythicMonday:GetMythicKeystoneInfo())
-end
 local renderAttempts = 1
 function TryRender()
   
