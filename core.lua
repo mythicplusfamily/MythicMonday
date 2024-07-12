@@ -18,8 +18,8 @@ function MythicMonday:Init()
   local addonName = "MythicMonday"
   SLASH_MythicMonday1 = "/mm"
   SlashCmdList[addonName] = SlashCommand
-  MythicMonday:CreateMainFrame()
-  MythicMonday:CreateRosterContainer()
+  -- MythicMonday:CreateMainFrame()
+  -- MythicMonday:CreateRosterContainer()
 end
 
 function MythicMonday:Render()
